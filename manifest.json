@@ -1,4 +1,5 @@
 {
+    "name": "st-ui-echo",
     "display_name": "ST UI Echo",
     "version": "1.0.0",
     "description": "自动将消息中的 /send 指令链接转化为现代化的交互式行动按钮。",
