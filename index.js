@@ -9,25 +9,23 @@ const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
  * 自动寻找消息中的指令链接并挂载样式类
  */
 function hydrateMessage(messageId) {
+    console.log(`[st-ui-echo] 尝试扫描消息 ID: ${messageId}`);
+    
     // 获取消息 DOM
     const messageElement = document.querySelector(`[data-id="${messageId}"]`);
-    if (!messageElement) return;
+    
+    if (!messageElement) {
+        console.error(`[st-ui-echo] 找不到 DOM 节点: [data-id="${messageId}"]`);
+        return;
+    }
 
-    // 寻找所有以 /send 开头的指令链接
     const actionLinks = messageElement.querySelectorAll('a[href^="/send"]');
+    console.log(`[st-ui-echo] 在消息中找到了 ${actionLinks.length} 个指令链接`);
 
     actionLinks.forEach(link => {
-        // 1. 防抖：如果已经处理过，直接跳过
-        if (link.classList.contains('st-echo-btn')) return;
-
-        // 2. 注入专属类名
         link.classList.add('st-echo-btn');
-
-        // 3. 语义化增强：如果是特定的指令，可以额外打标签（方便未来做彩色按钮）
-        const command = link.getAttribute('href');
-        if (command.includes('攻击') || command.includes('战斗')) {
-            link.classList.add('st-echo-danger');
-        }
+        // 强制给个明显的边框测试
+        link.style.outline = '3px solid lime'; 
     });
 }
 
